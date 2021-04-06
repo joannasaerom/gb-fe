@@ -14,10 +14,11 @@ type Props = {
   total: number;
   goal: number;
   members: Array<ImageProps>;
+  expanded: boolean;
 };
 
-export const AccordionItem = ({ members, score, team, total, goal }: Props) => {
-  const [showDetail, setShowDetail] = useState(false);
+export const AccordionItem = ({ expanded, members, score, team, total, goal }: Props) => {
+  const [showDetail, setShowDetail] = useState(expanded);
   const ordinalNumber = ordinalNumConverter(score);
   const formattedTotal = currencyFormatter(total);
 
@@ -28,11 +29,7 @@ export const AccordionItem = ({ members, score, team, total, goal }: Props) => {
     >
       <Badge showDetail={showDetail} score={score} />
       <div
-        className={cx(
-          'flex w-full justify-between',
-          showDetail ? 'cursor-default' : 'cursor-pointer'
-        )}
-      >
+        className="flex w-full justify-between cursor-pointer">
         <div className="flex items-center w-full">
           <p
             className={cx(
@@ -44,6 +41,8 @@ export const AccordionItem = ({ members, score, team, total, goal }: Props) => {
           </p>
           <p className="font-bold">{team}</p>
         </div>
+        {/*Display total donated if accordion is collapsed.*/}
+        {/*Display team member photos if accordion is expanded.*/}
         {showDetail ? (
           <TeamMembers members={members} />
         ) : (
@@ -56,10 +55,8 @@ export const AccordionItem = ({ members, score, team, total, goal }: Props) => {
           </div>
         )}
       </div>
-      <div
-        className={cx(showDetail ? 'flex items-center justify-between flex-wrap mt-2' : 'hidden')}
-      >
-        <AccordionItemDetail total={total} goal={goal} />
+      <div className={cx(showDetail ? 'flex items-center justify-between flex-wrap mt-2' : 'hidden')}>
+        <AccordionItemDetail showDetail={showDetail} total={total} goal={goal} />
       </div>
     </div>
   );

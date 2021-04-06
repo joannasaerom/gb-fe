@@ -14,6 +14,7 @@ export const TeamMembers = ({ members }: Props) => {
       {members.map((member, index) => {
         return (
           <img
+            key={index}
             className={cx(
               'w-9 border-2 border-gray-300 rounded-full absolute',
               index !== 0 ? `right-${(index + 1) * 4}` : 'right-4'
