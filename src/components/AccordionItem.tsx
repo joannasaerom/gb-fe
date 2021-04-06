@@ -1,5 +1,4 @@
 import cx from 'classnames';
-// import {handleEnterKeyPress} from "lib/accessibleClick";
 import { useState } from 'react';
 import { Badge } from 'components/Badge';
 import { AccordionItemDetail } from 'components/AccordionItemDetail';
