@@ -1,12 +1,8 @@
 import cx from 'classnames';
 import { useState } from 'react';
-import { Badge } from 'components/Badge';
-import { AccordionItemDetail } from 'components/AccordionItemDetail';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faChevronRight } from '@fortawesome/free-solid-svg-icons';
-import { currencyFormatter } from 'lib/currencyFormatter';
-import { ordinalNumConverter } from 'lib/ordinalNumConverter';
-import { ImageProps, TeamMembers } from './TeamMembers';
+import { DonationDetail } from 'components/DonationDetail';
+import { DonationHeader } from 'components/DonationHeader';
+import { ImageProps } from './TeamMembers';
 
 type Props = {
   score: number;
@@ -18,45 +14,31 @@ type Props = {
 };
 
 export const AccordionItem = ({ expanded, members, score, team, total, goal }: Props) => {
+  // State to control if detail section should be displayed or not
   const [showDetail, setShowDetail] = useState(expanded);
-  const ordinalNumber = ordinalNumConverter(score);
-  const formattedTotal = currencyFormatter(total);
-
+  const sectionId = `section-${score}`;
   return (
     <div
+      role="button"
+      aria-expanded={showDetail}
+      aria-controls={sectionId}
       onClick={() => setShowDetail(!showDetail)}
       className="relative p-4 border-t first:border-t-0 border-solid border-gray-300"
     >
-      <Badge showDetail={showDetail} score={score} />
+      {/*Donation header section*/}
+      <DonationHeader
+        total={total}
+        team={team}
+        score={score}
+        members={members}
+        showDetail={showDetail}
+      />
+      {/*Donation Detail section.*/}
       <div
-        className="flex w-full justify-between cursor-pointer">
-        <div className="flex items-center w-full">
-          <p
-            className={cx(
-              showDetail ? 'hidden' : 'block',
-              'w-8 text-gray-500 font-semibold text-xs'
-            )}
-          >
-            {ordinalNumber}
-          </p>
-          <p className="font-bold">{team}</p>
-        </div>
-        {/*Display total donated if accordion is collapsed.*/}
-        {/*Display team member photos if accordion is expanded.*/}
-        {showDetail ? (
-          <TeamMembers members={members} />
-        ) : (
-          <div className="flex items-center">
-            <p>{formattedTotal}</p>
-            <FontAwesomeIcon
-              className={cx(showDetail ? 'hidden' : 'block', 'ml-4 text-gray-400')}
-              icon={faChevronRight}
-            />
-          </div>
-        )}
-      </div>
-      <div className={cx(showDetail ? 'flex items-center justify-between flex-wrap mt-2' : 'hidden')}>
-        <AccordionItemDetail showDetail={showDetail} total={total} goal={goal} />
+        id={sectionId}
+        className={cx(showDetail ? 'flex items-center justify-between flex-wrap mt-2' : 'hidden')}
+      >
+        <DonationDetail showDetail={showDetail} total={total} goal={goal} />
       </div>
     </div>
   );

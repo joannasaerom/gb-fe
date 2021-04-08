@@ -7,7 +7,7 @@ type Props = {
   goal: number;
 };
 
-export const AccordionItemDetail = ({ showDetail, total, goal }: Props) => {
+export const DonationDetail = ({ showDetail, total, goal }: Props) => {
   const formattedTotal = currencyFormatter(total);
   const formattedGoal = currencyFormatter(goal);
   return (

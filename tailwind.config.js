@@ -6,13 +6,7 @@ module.exports = {
     },
   },
   darkMode: false, // or 'media' or 'class'
-  theme: {
-    extend: {
-      transitionProperty: {
-        'width': 'width',
-      }
-    },
-  },
+  theme: {},
   variants: {
     extend: {
       borderWidth: ['first'],

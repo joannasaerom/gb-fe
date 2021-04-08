@@ -2,7 +2,6 @@ import { AccordionItem } from './AccordionItem';
 import { teams } from 'data/teamData';
 
 export const Accordion = () => {
-
   return (
     <div className="relative bg-blue-50 border border-solid rounded border-gray-300 max-w-sm">
       {teams.map((team, index) => {
