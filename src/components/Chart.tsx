@@ -1,4 +1,3 @@
-import cx from 'classnames';
 import { Tween, Reveal } from 'react-gsap';
 
 type Props = {
